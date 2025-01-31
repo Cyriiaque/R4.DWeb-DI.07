@@ -1,37 +1,28 @@
 <?php
 
-/* indique où "vit" ce fichier */
-
 namespace App\Controller;
-
-/* indique l'utilisation du bon bundle pour gérer nos routes */
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-
-/* le nom de la classe doit être cohérent avec le nom du fichier */
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Lego;
 
 class LegoController extends AbstractController
 {
-    // L'attribute #[Route] indique ici que l'on associe la route
-    // "/" à la méthode home() pour que Symfony l'exécute chaque fois
-    // que l'on accède à la racine de notre site.
-
     #[Route('/', name: 'home')]
     public function home(): Response
     {
-        // get the user information and notifications somehow
-        $title = 'Ceci est un titre';
-        $msg = 'Get Lost';
+        // Create a new Lego object
+        $lego = new Lego(10252, "La coccinelle Volkwagen", "Creator Expert");
+        $lego->setPieces("1167");
+        $lego->setPrice("94.99");
+        $lego->setDescription("Construis une réplique LEGO® Creator Expert de l'automobile la plus populaire au monde. Ce magnifique modèle LEGO est plein de détails authentiques qui capturent le charme et la personnalité de la voiture, notamment un coloris bleu ciel, des ailes arrondies, des jantes blanches avec des enjoliveurs caractéristiques, des phares ronds et des clignotants montés sur les ailes");
+        $lego->setBoxImage("LEGO_10252_Box.png");
+        $lego->setLegoImage("LEGO_10252_Main.jpg");
 
         // the template path is the relative file path from `templates/`
-        return $this->render('test.html.twig', [
-            // this array defines the variables passed to the template,
-            // where the key is the variable name and the value is the variable value
-            // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')
-            'title' => $title,
-            'msg' => $msg,
+        return $this->render('lego.html.twig', [
+            'lego' => $lego,
         ]);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Entity;
+
 class Lego
 {
     private int $id;
@@ -15,20 +17,10 @@ class Lego
         int $id,
         string $name,
         string $collection,
-        int $pieces,
-        float $price,
-        string $description,
-        string $boxImage,
-        string $legoImage
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->collection = $collection;
-        $this->pieces = $pieces;
-        $this->price = $price;
-        $this->description = $description;
-        $this->boxImage = $boxImage;
-        $this->legoImage = $legoImage;
     }
 
     // Getters
