@@ -17,9 +17,6 @@ class Lego
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $collection = null;
-
     #[ORM\Column]
     private ?int $pieces = null;
 
@@ -48,18 +45,6 @@ class Lego
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCollection(): ?string
-    {
-        return $this->collection;
-    }
-
-    public function setCollection(string $collection): static
-    {
-        $this->collection = $collection;
 
         return $this;
     }
