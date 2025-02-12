@@ -3,7 +3,7 @@
 // Là ou la classe est déclarée (où son fichier se trouve)
 namespace App\Service;
 
-use App\Entity\Lego;
+use App\Entity\OldLego;
 use \PDO;
 
 class LegoService
@@ -23,7 +23,7 @@ class LegoService
         $legos = [];
 
         foreach ($results as $row) {
-            $lego = new Lego(
+            $lego = new OldLego(
                 $row['id'],
                 $row['name'],
                 $row['collection']
@@ -47,7 +47,7 @@ class LegoService
         $legos = [];
 
         foreach ($results as $row) {
-            $lego = new Lego(
+            $lego = new OldLego(
                 $row['id'],
                 $row['name'],
                 $row['collection']

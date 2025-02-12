@@ -5,14 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\LegoService;
+use App\Repository\LegoRepository;
 
 class LegoController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(LegoService $legoService): Response
+    public function home(LegoRepository $legoRepository): Response
     {
-        $lego = $legoService->getLegos();
+        $lego = $legoRepository->findall();
         $tmp = "";
         foreach ($lego as $l) {
             $tmp .= $this->renderView('lego.html.twig', [
@@ -23,7 +23,7 @@ class LegoController extends AbstractController
     }
 
     #[Route('/{collection}', name: 'filter_by_collection')]
-    public function filter(string $collection, LegoService $legoService): Response
+    public function filter(string $collection, LegoRepository $legoRepository): Response
     {
         if ($collection === 'star_wars') {
             $collection = 'Star Wars';
@@ -31,7 +31,7 @@ class LegoController extends AbstractController
         if ($collection === 'creator_expert') {
             $collection = 'Creator Expert';
         }
-        $legos = $legoService->getLegosByCollection($collection);
+        $legos = $legoRepository->findByCat($collection);
         $tmp = "";
         foreach ($legos as $lego) {
             $tmp .= $this->renderView('lego.html.twig', [
