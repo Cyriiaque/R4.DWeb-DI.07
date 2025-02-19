@@ -3,7 +3,7 @@
 // Là ou la classe est déclarée (où son fichier se trouve)
 namespace App\Service;
 
-use App\Entity\OldLego;
+use App\Entity\Lego;
 use \PDO;
 
 class LegoService
@@ -23,40 +23,40 @@ class LegoService
         $legos = [];
 
         foreach ($results as $row) {
-            $lego = new OldLego(
+            $lego = new Lego(
                 $row['id'],
                 $row['name'],
-                $row['collection']
+                $row['collection_id'],
             );
             $lego->setDescription($row['description']);
             $lego->setPrice($row['price']);
             $lego->setPieces($row['pieces']);
-            $lego->setBoxImage($row['imagebox']);
-            $lego->setLegoImage($row['imagebg']);
+            $lego->setBoxImage($row['box_image']);
+            $lego->setLegoImage($row['lego_image']);
             $legos[] = $lego;
         }
         return $legos;
     }
     public function getLegosByCollection($collection)
     {
-        $query = 'SELECT * FROM lego WHERE collection = :collection';
+        $query = 'SELECT * FROM lego WHERE collection_id = :collection_id';
         $statement = $this->pdo->prepare($query);
-        $statement->bindParam(':collection', $collection, PDO::PARAM_STR);
+        $statement->bindParam(':collection_id', $collection, PDO::PARAM_STR);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         $legos = [];
 
         foreach ($results as $row) {
-            $lego = new OldLego(
+            $lego = new Lego(
                 $row['id'],
                 $row['name'],
-                $row['collection']
+                $row['collection_id']
             );
             $lego->setDescription($row['description']);
             $lego->setPrice($row['price']);
             $lego->setPieces($row['pieces']);
-            $lego->setBoxImage($row['imagebox']);
-            $lego->setLegoImage($row['imagebg']);
+            $lego->setBoxImage($row['box_image']);
+            $lego->setLegoImage($row['lego_image']);
             $legos[] = $lego;
         }
         return $legos;
